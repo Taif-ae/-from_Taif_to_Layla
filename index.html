@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>For Laila 🎀</title>
 
   <style>
@@ -16,111 +17,133 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      background: #ffeaf3;
+      background: #ffe8f1;
+      font-family: Arial, sans-serif;
+      color: #9b5874;
       overflow: hidden;
-      color: #8d536d;
     }
 
-    .container {
+    .page {
       text-align: center;
-      width: 90%;
-      max-width: 430px;
+      width: 100%;
     }
 
     h1 {
+      color: #c26b8d;
       font-size: 28px;
-      margin-bottom: 35px;
-      color: #b76587;
+      margin-bottom: 45px;
     }
 
-    /* الظرف */
+    /* الظرف كامل */
     .envelope {
       position: relative;
-      width: 300px;
-      height: 190px;
+      width: 330px;
+      height: 220px;
       margin: auto;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      perspective: 1000px;
     }
 
-    .envelope:hover {
-      transform: scale(1.04);
-    }
-
-    .back {
+    /* جسم الظرف */
+    .envelope-body {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #f6b8cf;
-      border-radius: 8px;
-      box-shadow: 0 12px 30px rgba(180, 90, 120, 0.18);
+      inset: 0;
+      background: #f4aec8;
+      border-radius: 10px;
+      box-shadow: 0 15px 35px rgba(180, 90, 120, 0.2);
+      overflow: hidden;
+      z-index: 1;
     }
 
+    /* الخطوط اللي تعطي شكل الظرف */
+    .envelope-body::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      border-left: 165px solid transparent;
+      border-right: 165px solid transparent;
+      border-bottom: 120px solid #ed9fbd;
+    }
+
+    .envelope-body::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-left: 165px solid #f8c1d6;
+      border-bottom: 110px solid transparent;
+    }
+
+    /* الورقة */
     .letter {
       position: absolute;
-      width: 88%;
-      height: 85%;
-      background: #fffafa;
-      left: 6%;
-      top: 7%;
-      border-radius: 5px;
+      width: 285px;
+      height: 185px;
+      left: 22px;
+      top: 18px;
+
+      background: #fffdfd;
+      border-radius: 8px;
+
       padding: 20px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      transition: 0.7s ease;
+      justify-content: center;
+
       z-index: 2;
-      opacity: 0;
-      transform: translateY(20px);
+
+      transition: transform 0.8s ease;
     }
 
     .letter p {
-      font-size: 15px;
-      line-height: 1.9;
       margin: 0;
+      font-size: 14px;
+      line-height: 1.8;
     }
 
-    .front {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 100px;
-      background: #f3a9c4;
-      clip-path: polygon(0 0, 50% 65%, 100% 0, 100% 100%, 0 100%);
-      z-index: 3;
-      border-radius: 0 0 8px 8px;
-    }
-
+    /* الغطاء */
     .flap {
       position: absolute;
+      left: 0;
       top: 0;
-      width: 100%;
-      height: 115px;
-      background: #f7c3d7;
-      clip-path: polygon(0 0, 100% 0, 50% 75%);
+
+      width: 330px;
+      height: 125px;
+
+      background: #f7bfd5;
+
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 82%
+      );
+
       transform-origin: top;
-      transition: 0.7s ease;
+      transition: transform 0.7s ease;
+
       z-index: 4;
     }
 
+    /* القلب */
     .heart {
       position: absolute;
       z-index: 5;
       left: 50%;
-      top: 65px;
+      top: 85px;
       transform: translateX(-50%);
-      font-size: 30px;
-      transition: 0.5s ease;
+
+      font-size: 32px;
+      transition: 0.4s ease;
     }
 
+    /* عند الفتح */
     .opened .flap {
       transform: rotateX(180deg);
     }
 
     .opened .letter {
-      opacity: 1;
-      transform: translateY(-85px);
+      transform: translateY(-150px);
     }
 
     .opened .heart {
@@ -128,54 +151,65 @@
     }
 
     .hint {
-      margin-top: 30px;
+      margin-top: 35px;
+      color: #ad6a85;
       font-size: 14px;
-      color: #a86b82;
     }
 
-    .bow {
+    .decor {
       position: fixed;
       font-size: 25px;
-      animation: float 4s infinite ease-in-out;
       opacity: 0.7;
+      animation: float 4s ease-in-out infinite;
     }
 
-    .b1 { left: 10%; top: 15%; }
-    .b2 { right: 10%; top: 25%; animation-delay: 1s; }
-    .b3 { left: 15%; bottom: 15%; animation-delay: 2s; }
-    .b4 { right: 15%; bottom: 12%; animation-delay: 1.5s; }
+    .one {
+      top: 15%;
+      left: 10%;
+    }
+
+    .two {
+      top: 25%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    .three {
+      bottom: 15%;
+      left: 13%;
+      animation-delay: 2s;
+    }
+
+    .four {
+      bottom: 12%;
+      right: 13%;
+      animation-delay: 1.5s;
+    }
 
     @keyframes float {
       0%, 100% {
-        transform: translateY(0) rotate(-5deg);
+        transform: translateY(0);
       }
-      50% {
-        transform: translateY(-15px) rotate(5deg);
-      }
-    }
 
-    .small {
-      margin-top: 45px;
-      font-size: 12px;
-      color: #bd8198;
+      50% {
+        transform: translateY(-12px);
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="bow b1">🎀</div>
-  <div class="bow b2">♡</div>
-  <div class="bow b3">🎀</div>
-  <div class="bow b4">♡</div>
+  <div class="decor one">🎀</div>
+  <div class="decor two">♡</div>
+  <div class="decor three">🎀</div>
+  <div class="decor four">♡</div>
 
-  <div class="container">
+  <div class="page">
 
     <h1>Happy Birthday Laila 🎀</h1>
 
-    <div class="envelope" onclick="openLetter()" id="envelope">
-
-      <div class="back"></div>
+    <div class="envelope" id="envelope" onclick="openLetter()">
 
       <div class="letter">
         <p>
@@ -187,8 +221,10 @@
         </p>
       </div>
 
+      <div class="envelope-body"></div>
+
       <div class="flap"></div>
-      <div class="front"></div>
+
       <div class="heart">💌</div>
 
     </div>
@@ -197,21 +233,18 @@
       اضغطي على الظرف 🎀
     </div>
 
-    <div class="small">
-      made with love ♡
-    </div>
-
   </div>
 
   <script>
     function openLetter() {
+
       const envelope = document.getElementById("envelope");
       const hint = document.getElementById("hint");
 
       envelope.classList.toggle("opened");
 
       if (envelope.classList.contains("opened")) {
-        hint.innerHTML = "for you, Laila ♡";
+        hint.innerHTML = "♡ for you, Laila ♡";
       } else {
         hint.innerHTML = "اضغطي على الظرف 🎀";
       }
