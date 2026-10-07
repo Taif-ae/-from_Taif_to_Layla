@@ -14,241 +14,412 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ffe8f1;
+      background: linear-gradient(135deg, #fff0f6, #ffdce9);
       font-family: Arial, sans-serif;
-      color: #9b5874;
+      color: #a45b78;
       overflow: hidden;
     }
 
     .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      width: 100%;
+      padding: 20px;
     }
+
+    /* العنوان */
 
     h1 {
-      color: #c26b8d;
-      font-size: 28px;
-      margin-bottom: 45px;
+      font-size: 30px;
+      color: #c36387;
+      margin: 0 0 45px;
+      letter-spacing: 1px;
     }
 
-    /* الظرف كامل */
+    /* الظرف */
+
     .envelope {
       position: relative;
-      width: 330px;
-      height: 220px;
-      margin: auto;
+      width: 340px;
+      height: 225px;
       cursor: pointer;
       perspective: 1000px;
     }
 
-    /* جسم الظرف */
-    .envelope-body {
-      position: absolute;
-      inset: 0;
-      background: #f4aec8;
-      border-radius: 10px;
-      box-shadow: 0 15px 35px rgba(180, 90, 120, 0.2);
-      overflow: hidden;
-      z-index: 1;
-    }
+    /* الورقة مخفية داخل الظرف */
 
-    /* الخطوط اللي تعطي شكل الظرف */
-    .envelope-body::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      border-left: 165px solid transparent;
-      border-right: 165px solid transparent;
-      border-bottom: 120px solid #ed9fbd;
-    }
-
-    .envelope-body::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      border-left: 165px solid #f8c1d6;
-      border-bottom: 110px solid transparent;
-    }
-
-    /* الورقة */
     .letter {
       position: absolute;
-      width: 285px;
-      height: 185px;
-      left: 22px;
+
+      width: 300px;
+      min-height: 190px;
+
+      left: 20px;
       top: 18px;
 
       background: #fffdfd;
-      border-radius: 8px;
+      border-radius: 10px;
 
-      padding: 20px;
+      padding: 25px 22px;
+
       display: flex;
       align-items: center;
       justify-content: center;
 
-      z-index: 2;
+      opacity: 0;
 
-      transition: transform 0.8s ease;
+      z-index: 1;
+
+      transition:
+        transform 1s ease,
+        opacity 0.5s ease;
     }
 
     .letter p {
       margin: 0;
-      font-size: 14px;
-      line-height: 1.8;
+
+      font-size: 15px;
+      line-height: 2;
+
+      color: #9b5874;
     }
 
-    /* الغطاء */
-    .flap {
+    /* جسم الظرف */
+
+    .envelope-body {
       position: absolute;
+
+      inset: 0;
+
+      background: #f2abc5;
+
+      border-radius: 10px;
+
+      box-shadow:
+        0 15px 35px rgba(181, 93, 125, 0.22);
+
+      overflow: hidden;
+
+      z-index: 3;
+    }
+
+    /* شكل الورق السفلي */
+
+    .envelope-body::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      bottom: 0;
+
+      border-left: 170px solid transparent;
+      border-right: 170px solid transparent;
+      border-bottom: 125px solid #e99bb9;
+    }
+
+    /* الجانب الأيسر */
+
+    .envelope-body::after {
+      content: "";
+
+      position: absolute;
+
       left: 0;
       top: 0;
 
-      width: 330px;
-      height: 125px;
+      border-left: 170px solid #f8bfd4;
+      border-bottom: 115px solid transparent;
+    }
 
-      background: #f7bfd5;
+    /* غطاء الظرف */
+
+    .flap {
+      position: absolute;
+
+      width: 340px;
+      height: 135px;
+
+      left: 0;
+      top: 0;
+
+      background: #f8bfd5;
 
       clip-path: polygon(
         0 0,
         100% 0,
-        50% 82%
+        50% 85%
       );
 
       transform-origin: top;
-      transition: transform 0.7s ease;
 
-      z-index: 4;
+      transition: transform 0.8s ease;
+
+      z-index: 5;
     }
 
     /* القلب */
+
     .heart {
       position: absolute;
-      z-index: 5;
+
       left: 50%;
-      top: 85px;
+      top: 90px;
+
       transform: translateX(-50%);
 
       font-size: 32px;
-      transition: 0.4s ease;
+
+      z-index: 6;
+
+      transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
     }
 
-    /* عند الفتح */
+    /* حالة الفتح */
+
     .opened .flap {
       transform: rotateX(180deg);
     }
 
     .opened .letter {
-      transform: translateY(-150px);
+      opacity: 1;
+
+      transform: translateY(-165px);
+
+      z-index: 7;
     }
 
     .opened .heart {
       opacity: 0;
+
+      transform:
+        translateX(-50%)
+        scale(0);
     }
 
+    /* الكلام تحت الظرف */
+
     .hint {
-      margin-top: 35px;
-      color: #ad6a85;
+      margin-top: 45px;
+
       font-size: 14px;
+
+      color: #ae6b86;
+
+      transition: 0.4s ease;
     }
+
+    /* زينة */
 
     .decor {
       position: fixed;
-      font-size: 25px;
-      opacity: 0.7;
+
+      font-size: 26px;
+
+      opacity: 0.65;
+
       animation: float 4s ease-in-out infinite;
+      pointer-events: none;
     }
 
-    .one {
-      top: 15%;
+    .bow1 {
+      top: 12%;
       left: 10%;
     }
 
-    .two {
-      top: 25%;
+    .bow2 {
+      top: 20%;
       right: 10%;
       animation-delay: 1s;
     }
 
-    .three {
+    .bow3 {
       bottom: 15%;
-      left: 13%;
+      left: 12%;
       animation-delay: 2s;
     }
 
-    .four {
+    .bow4 {
       bottom: 12%;
-      right: 13%;
+      right: 12%;
       animation-delay: 1.5s;
     }
 
     @keyframes float {
+
       0%, 100% {
-        transform: translateY(0);
+        transform: translateY(0) rotate(-5deg);
       }
 
       50% {
-        transform: translateY(-12px);
+        transform: translateY(-12px) rotate(5deg);
+      }
+    }
+
+    /* قلوب تظهر بعد الفتح */
+
+    .opened-heart {
+      position: fixed;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      font-size: 20px;
+    }
+
+    .opened .opened-heart {
+      animation: pop 1.5s ease forwards;
+    }
+
+    @keyframes pop {
+
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0);
+      }
+
+      40% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1.2);
+      }
+    }
+
+    /* للموبايل */
+
+    @media (max-width: 500px) {
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .envelope {
+        transform: scale(0.88);
       }
     }
   </style>
 </head>
 
+
 <body>
 
-  <div class="decor one">🎀</div>
-  <div class="decor two">♡</div>
-  <div class="decor three">🎀</div>
-  <div class="decor four">♡</div>
+  <!-- الزينة -->
+
+  <div class="decor bow1">🎀</div>
+  <div class="decor bow2">♡</div>
+  <div class="decor bow3">🎀</div>
+  <div class="decor bow4">♡</div>
+
 
   <div class="page">
 
-    <h1>Happy Birthday Laila 🎀</h1>
+    <h1>
+      Happy Birthday Laila 🎀
+    </h1>
 
-    <div class="envelope" id="envelope" onclick="openLetter()">
+
+    <!-- الظرف -->
+
+    <div
+      class="envelope"
+      id="envelope"
+      onclick="openEnvelope()"
+    >
+
+      <!-- البطاقة -->
 
       <div class="letter">
+
         <p>
+
           ليلى 🤍<br>
-          كل عام وانتي بخيرر، عسى أيامج كلها فرحة وسعادة،
-          وإن شاء الله تكون سنتج اليديدة حلوة عليج
-          وتحققين فيها كل اللي تتمنينه،
-          وعسى ربي يكتب لج فيها كل الخير والفرح 🎀🫶🏻
+
+          كل عام وانتي بخيرر، عسى أيامج كلها
+          فرحة وسعادة، وإن شاء الله تكون سنتج
+          اليديدة حلوة عليج وتحققين فيها كل
+          اللي تتمنينه، وعسى ربي يكتب لج فيها
+          كل الخير والفرح 🎀🫶🏻
+
+          <br><br>
+
+          والهدية بتوصّلج بعد الإجازة إن شاء الله،
+          عشان أرتبها على راحتي وتطلع حلوة
+          ويكون عندي وقت أضبطها لج 🤍🎀
+
         </p>
+
       </div>
+
+
+      <!-- جسم الظرف -->
 
       <div class="envelope-body"></div>
 
+
+      <!-- غطاء الظرف -->
+
       <div class="flap"></div>
 
-      <div class="heart">💌</div>
+
+      <!-- القلب -->
+
+      <div class="heart">
+        💌
+      </div>
 
     </div>
 
-    <div class="hint" id="hint">
+
+    <div
+      class="hint"
+      id="hint"
+    >
       اضغطي على الظرف 🎀
     </div>
 
   </div>
 
-  <script>
-    function openLetter() {
 
-      const envelope = document.getElementById("envelope");
-      const hint = document.getElementById("hint");
+  <script>
+
+    function openEnvelope() {
+
+      const envelope =
+        document.getElementById("envelope");
+
+      const hint =
+        document.getElementById("hint");
+
 
       envelope.classList.toggle("opened");
 
-      if (envelope.classList.contains("opened")) {
-        hint.innerHTML = "♡ for you, Laila ♡";
+
+      if (
+        envelope.classList.contains("opened")
+      ) {
+
+        hint.innerHTML =
+          "♡ for you, Laila ♡";
+
       } else {
-        hint.innerHTML = "اضغطي على الظرف 🎀";
+
+        hint.innerHTML =
+          "اضغطي على الظرف 🎀";
+
       }
+
     }
+
   </script>
 
 </body>
